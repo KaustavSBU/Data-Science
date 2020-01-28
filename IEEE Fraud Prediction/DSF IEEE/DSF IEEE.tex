@@ -1,0 +1,1557 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{DSF IEEE}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{homework-2---ieee-fraud-detection}{%
+\section{Homework 2 - IEEE Fraud
+Detection}\label{homework-2---ieee-fraud-detection}}
+
+    For all parts below, answer all parts as shown in the Google document
+for Homework 2. Be sure to include both code that justifies your answer
+as well as text to answer the questions. We also ask that code be
+commented to make it easier to follow.
+
+    \hypertarget{part-1---fraudulent-vs-non-fraudulent-transaction}{%
+\subsection{Part 1 - Fraudulent vs Non-Fraudulent
+Transaction}\label{part-1---fraudulent-vs-non-fraudulent-transaction}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{c+c1}{\PYZsh{}Importing Pandas}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{c+c1}{\PYZsh{} Read Identity CSV}
+          \PY{n}{df\PYZus{}identity} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data Science Fundamentals}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{train\PYZus{}identity.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{c+c1}{\PYZsh{} Read Transaction CSV}
+          \PY{n}{df\PYZus{}transaction}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data Science Fundamentals}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{train\PYZus{}transaction.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{c+c1}{\PYZsh{} Crop the Identity CSV to columns needed}
+          \PY{n}{identity\PYZus{}columns}\PY{o}{=}\PY{n}{df\PYZus{}identity}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceInfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{n}{identity\PYZus{}columns}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}194}]:}    TransactionID DeviceType                     DeviceInfo
+          0        2987004     mobile  SAMSUNG SM-G892A Build/NRD90M
+          1        2987008     mobile                     iOS Device
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{} Convert the Timedelta from a default timestamp}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}transaction[\PYZsq{}TransactionDT\PYZsq{}]=pd.to\PYZus{}datetime(df\PYZus{}transaction[\PYZsq{}TransactionDT\PYZsq{}], unit=\PYZsq{}s\PYZsq{})}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{c+c1}{\PYZsh{} Crop the Transaction CSV to columns needed}
+          \PY{n}{transaction\PYZus{}columns}\PY{o}{=}\PY{n}{df\PYZus{}transaction}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{n}{transaction\PYZus{}columns}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}197}]:}    TransactionID  TransactionDT  TransactionAmt ProductCD  isFraud  \textbackslash{}
+          0        2987000          86400            68.5         W        0   
+          1        2987001          86401            29.0         W        0   
+          
+                  card4   card6 P\_emaildomain R\_emaildomain  addr1  addr2  dist1  dist2  
+          0    discover  credit           NaN           NaN  315.0   87.0   19.0    NaN  
+          1  mastercard  credit     gmail.com           NaN  325.0   87.0    NaN    NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{c+c1}{\PYZsh{} Complete Column List}
+          \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{=}\PY{n}{transaction\PYZus{}columns}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{identity\PYZus{}columns}\PY{p}{,}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}199}]:}    TransactionID  TransactionDT  TransactionAmt ProductCD  isFraud  \textbackslash{}
+          0        2987000          86400            68.5         W        0   
+          1        2987001          86401            29.0         W        0   
+          2        2987002          86469            59.0         W        0   
+          3        2987003          86499            50.0         W        0   
+          4        2987004          86506            50.0         H        0   
+          5        2987005          86510            49.0         W        0   
+          6        2987006          86522           159.0         W        0   
+          7        2987007          86529           422.5         W        0   
+          8        2987008          86535            15.0         H        0   
+          9        2987009          86536           117.0         W        0   
+          
+                  card4   card6  P\_emaildomain R\_emaildomain  addr1  addr2  dist1  \textbackslash{}
+          0    discover  credit            NaN           NaN  315.0   87.0   19.0   
+          1  mastercard  credit      gmail.com           NaN  325.0   87.0    NaN   
+          2        visa   debit    outlook.com           NaN  330.0   87.0  287.0   
+          3  mastercard   debit      yahoo.com           NaN  476.0   87.0    NaN   
+          4  mastercard  credit      gmail.com           NaN  420.0   87.0    NaN   
+          5        visa   debit      gmail.com           NaN  272.0   87.0   36.0   
+          6        visa   debit      yahoo.com           NaN  126.0   87.0    0.0   
+          7        visa   debit       mail.com           NaN  325.0   87.0    NaN   
+          8        visa   debit  anonymous.com           NaN  337.0   87.0    NaN   
+          9  mastercard   debit      yahoo.com           NaN  204.0   87.0   19.0   
+          
+             dist2 DeviceType                     DeviceInfo  
+          0    NaN        NaN                            NaN  
+          1    NaN        NaN                            NaN  
+          2    NaN        NaN                            NaN  
+          3    NaN        NaN                            NaN  
+          4    NaN     mobile  SAMSUNG SM-G892A Build/NRD90M  
+          5    NaN        NaN                            NaN  
+          6    NaN        NaN                            NaN  
+          7    NaN        NaN                            NaN  
+          8    NaN     mobile                     iOS Device  
+          9    NaN        NaN                            NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{c+c1}{\PYZsh{}Filter Fraud Transactions}
+          \PY{n}{Fraud\PYZus{}Transactions\PYZus{}Boolean}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{n}{Fraud\PYZus{}Transactions\PYZus{}Boolean}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}Filter Non\PYZhy{}Fraudulent Transactions}
+          \PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions\PYZus{}Boolean}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}
+          \PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions\PYZus{}Boolean}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{n}{Fraud\PYZus{}Transactions}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}201}]:}      TransactionID  TransactionDT  TransactionAmt ProductCD  isFraud  \textbackslash{}
+          203        2987203          89760         445.000         W        1   
+          240        2987240          90193          37.098         C        1   
+          243        2987243          90246          37.098         C        1   
+          245        2987245          90295          37.098         C        1   
+          288        2987288          90986         155.521         C        1   
+          367        2987367          92350         225.000         R        1   
+          405        2987405          92999          90.570         C        1   
+          630        2987630          97843          12.326         C        1   
+          683        2987683          99584         124.344         C        1   
+          736        2987736         100591         100.000         W        1   
+          
+                    card4   card6 P\_emaildomain R\_emaildomain  addr1  addr2  dist1  \textbackslash{}
+          203        visa  credit       aol.com           NaN  251.0   87.0    NaN   
+          240        visa  credit   hotmail.com   hotmail.com    NaN    NaN    NaN   
+          243        visa  credit   hotmail.com   hotmail.com    NaN    NaN    NaN   
+          245        visa  credit   hotmail.com   hotmail.com    NaN    NaN    NaN   
+          288        visa  credit   outlook.com   outlook.com    NaN    NaN    NaN   
+          367  mastercard  credit     gmail.com     gmail.com  472.0   87.0    NaN   
+          405  mastercard  credit     gmail.com     gmail.com    NaN    NaN    NaN   
+          630  mastercard   debit     gmail.com     gmail.com    NaN    NaN    NaN   
+          683  mastercard   debit     gmail.com     gmail.com    NaN    NaN    NaN   
+          736        visa  credit     yahoo.com           NaN  231.0   87.0    NaN   
+          
+               dist2 DeviceType                 DeviceInfo  
+          203    NaN        NaN                        NaN  
+          240    NaN     mobile  Redmi Note 4 Build/MMB29M  
+          243    NaN     mobile  Redmi Note 4 Build/MMB29M  
+          245    NaN     mobile  Redmi Note 4 Build/MMB29M  
+          288    NaN     mobile                        NaN  
+          367    NaN    desktop                    rv:52.0  
+          405    NaN     mobile                        NaN  
+          630    7.0    desktop                    Windows  
+          683    7.0    desktop                    Windows  
+          736    NaN        NaN                        NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}202}]:}    TransactionID  TransactionDT  TransactionAmt ProductCD  isFraud  \textbackslash{}
+          0        2987000          86400            68.5         W        0   
+          1        2987001          86401            29.0         W        0   
+          2        2987002          86469            59.0         W        0   
+          3        2987003          86499            50.0         W        0   
+          4        2987004          86506            50.0         H        0   
+          5        2987005          86510            49.0         W        0   
+          6        2987006          86522           159.0         W        0   
+          7        2987007          86529           422.5         W        0   
+          8        2987008          86535            15.0         H        0   
+          9        2987009          86536           117.0         W        0   
+          
+                  card4   card6  P\_emaildomain R\_emaildomain  addr1  addr2  dist1  \textbackslash{}
+          0    discover  credit            NaN           NaN  315.0   87.0   19.0   
+          1  mastercard  credit      gmail.com           NaN  325.0   87.0    NaN   
+          2        visa   debit    outlook.com           NaN  330.0   87.0  287.0   
+          3  mastercard   debit      yahoo.com           NaN  476.0   87.0    NaN   
+          4  mastercard  credit      gmail.com           NaN  420.0   87.0    NaN   
+          5        visa   debit      gmail.com           NaN  272.0   87.0   36.0   
+          6        visa   debit      yahoo.com           NaN  126.0   87.0    0.0   
+          7        visa   debit       mail.com           NaN  325.0   87.0    NaN   
+          8        visa   debit  anonymous.com           NaN  337.0   87.0    NaN   
+          9  mastercard   debit      yahoo.com           NaN  204.0   87.0   19.0   
+          
+             dist2 DeviceType                     DeviceInfo  
+          0    NaN        NaN                            NaN  
+          1    NaN        NaN                            NaN  
+          2    NaN        NaN                            NaN  
+          3    NaN        NaN                            NaN  
+          4    NaN     mobile  SAMSUNG SM-G892A Build/NRD90M  
+          5    NaN        NaN                            NaN  
+          6    NaN        NaN                            NaN  
+          7    NaN        NaN                            NaN  
+          8    NaN     mobile                     iOS Device  
+          9    NaN        NaN                            NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{c+c1}{\PYZsh{} Import matplotlib to examine distributions}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{c+c1}{\PYZsh{} Import numpy to get better histogram distributions}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{c+c1}{\PYZsh{} Histogram for Fraudulent Transactions}
+          \PY{n}{hists} \PY{o}{=} \PY{n}{Fraud\PYZus{}Transactions}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{c+c1}{\PYZsh{} Import matplotlib to examine distributions}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{c+c1}{\PYZsh{} Histogram for Non Fraudulent Transactions}
+          \PY{n}{hists} \PY{o}{=} \PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{c+c1}{\PYZsh{} Importing seaborn for doing plotting}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{c+c1}{\PYZsh{} Now,let\PYZsq{}s get the count of Fraud vs Non\PYZhy{}Fraud Transactions}
+          \PY{c+c1}{\PYZsh{} https://seaborn.pydata.org/generated/seaborn.countplot.html}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{isFraud} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot I: Fraud vs Non\PYZhy{}Fraud Transactions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{c+c1}{\PYZsh{} For Plot II, I will plot the Fraud Transactions according to the DeviceType, and the ProductCD }
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{DeviceType} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{Fraud\PYZus{}Transactions}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot II (a) : Device Type of Fraud Txn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ProductCD} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{Fraud\PYZus{}Transactions}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot II (b) : ProductCD of Fraud Txn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **Observation: From Plot II (a), it can be established that its hard to
+distinguish between the number of fraud transactions, that occured on
+mobile and desktop, as they are almost equal. Also, from Plot II (b), it
+can be confirmed that the products having ProductCD `W' have highest
+number of fraud transactions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{c+c1}{\PYZsh{} For Plot III, I am trying to plot the Fraud Transactions according to the DeviceInfo. As there are too many device types,}
+          \PY{c+c1}{\PYZsh{} I will limit the graph to the top 15 devices}
+          \PY{c+c1}{\PYZsh{} Ref: https://seaborn.pydata.org/generated/seaborn.barplot.html}
+          \PY{c+c1}{\PYZsh{} Ref: https://s3.amazonaws.com/assets.datacamp.com/blog\PYZus{}assets/Python\PYZus{}Seaborn\PYZus{}Cheat\PYZus{}Sheet.pdf }
+          \PY{n}{fraud} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fraud}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Fraud\PYZus{}Transactions}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceInfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceInfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fraud}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceInfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fraud}\PY{o}{.}\PY{n}{index}
+          \PY{n}{group\PYZus{}top} \PY{o}{=} \PY{n}{fraud}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{1.3}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DeviceInfo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DeviceCount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{group\PYZus{}top}\PY{p}{)}
+          
+          \PY{n}{font\PYZus{}size}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot III: Fraud Transactions by Device Info}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font\PYZus{}size}\PY{p}{)}
+          \PY{n}{xt} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{65}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **Observation: From Plot III, it can be established that Fraud
+transaction cases come mostly from Windows and iOS devices. This is
+predictable given the vast majority of all transactions come from those
+systems.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{c+c1}{\PYZsh{} For Plot IV,I am first plotting the distribution of Transaction Amt of Fraudulent Txn}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maroon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot IV:Distribution of Transaction Amt of Fraudulent Txn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{c+c1}{\PYZsh{} For Plot V,I am plotting the distribution of Log of Transaction Amt of Fraudulent Txn, as it gives a better distribution}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{)} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maroon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot V:Distribution of Log of Transaction Amt of Fraudulent Txn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot V, it can be concluded that taking the log gives us a better
+distribution, as the transaction amounts lies within a narrow range.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{c+c1}{\PYZsh{} For Plot VI,I am plotting the distribution of the card merchant as well as the card type of Fraud Txn}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{card4} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{Fraud\PYZus{}Transactions}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot VI (a) : Card Merchant of Fraud Txn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{card6} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{Fraud\PYZus{}Transactions}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot VI (b) : Card Type of Fraud Txn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot VI(a), it can be established that maximum fraud transactions
+occur when the card merchant is VISA. Also, from Plot VI(b), we see more
+fraud happening in debit transactions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{c+c1}{\PYZsh{} For Plot VII, I am plotting the Fraud Transactions according to the Purchaser Email Domain. As there are too many such types,}
+          \PY{c+c1}{\PYZsh{} I will limit the graph to the top 15 email domains}
+          \PY{n}{fraud} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fraud}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PurchaserEmailCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Fraud\PYZus{}Transactions}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fraud}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fraud}\PY{o}{.}\PY{n}{index}
+          \PY{n}{group\PYZus{}top} \PY{o}{=} \PY{n}{fraud}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PurchaserEmailCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{1.3}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{P\PYZus{}emaildomain}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PurchaserEmailCount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{group\PYZus{}top}\PY{p}{)}
+          
+          \PY{n}{font\PYZus{}size}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot VII: Fraud Transactions by Purchaser Email Info}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font\PYZus{}size}\PY{p}{)}
+          \PY{n}{xt} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{65}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot VII, we see that most of the purchaser email domain
+associated with fraud transactions come from gmail.com
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{c+c1}{\PYZsh{} For Plot VIII, I am plotting the Fraud Transactions according to the Recipient Email Domain. As there are too many such types,}
+          \PY{c+c1}{\PYZsh{} I will limit the graph to the top 15 email domains}
+          \PY{n}{fraud} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fraud}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RecipientEmailCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Fraud\PYZus{}Transactions}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fraud}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fraud}\PY{o}{.}\PY{n}{index}
+          \PY{n}{group\PYZus{}top} \PY{o}{=} \PY{n}{fraud}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RecipientEmailCount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{1.3}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZus{}emaildomain}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RecipientEmailCount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{group\PYZus{}top}\PY{p}{)}
+          
+          \PY{n}{font\PYZus{}size}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot VIII: Fraud Transactions by Recipient Email Info}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font\PYZus{}size}\PY{p}{)}
+          \PY{n}{xt} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{65}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot VIII, we see that most of the receiver email domain
+associated with fraud transactions come from gmail.com, as well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{c+c1}{\PYZsh{} For Plot IX,I am plotting the distribution of the addr1 field associated with Fraudulent Txn}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{teal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot IX: Distribution of addr1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{c+c1}{\PYZsh{} For Plot X,I am plotting the distribution of the addr2 field associated with Fraudulent Txn}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{purple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot X: Distribution of addr2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{c+c1}{\PYZsh{} For Plot XI,I am plotting the distribution of dist1 of Fraudulent Txn}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XI: Distribution of dist1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{c+c1}{\PYZsh{}  For Plot XII,I am plotting the log of distribution of dist1 of Fraudulent Txn}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{seagreen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XII:Distribution of Log of dist1 of Fraudulent Txn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{true}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot XII, it can be concluded that taking the log gives us a
+better distribution, as the dist1 values lies within a narrow range.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{c+c1}{\PYZsh{} For Plot XIII,I am plotting the distribution of dist2 of Fraudulent Txn}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{royalblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XI: Distribution of dist2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{c+c1}{\PYZsh{}  For Plot XIV,I am plotting the log of distribution of dist2 of Fraudulent Txn}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cornflowerblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XIV:Distribution of Log of dist2 of Fraudulent Txn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{true}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot XIV, it can be concluded that taking the log gives us a
+better distribution, as the dist2 values lies within a narrow range,
+just like dist1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{c+c1}{\PYZsh{} Plot XV Fraud vs Non Fraud for DeviceInfo and DeviceType}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{isFraud} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XV (a) : Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{DeviceInfo} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceInfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceInfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}.set\PYZus{}title(\PYZdq{}Plot XV (b) : ProductCD \PYZhy{} Fraud vs Non Fraud\PYZdq{})}
+          \PY{n}{DeviceInfo}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{DeviceInfo}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{DeviceInfo}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XV(b): DeviceInfo\PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{DeviceType} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DeviceType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XV (a) : DeviceType \PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot XV, we can make (a) Fraud Transactions are very less
+compared to Non-Fraud Transactions. (b) Althought the number of fraud
+transactions is very high for Windows devices, but again, the number of
+non-fraud transactions is also very high. (c) Desktop has a larger
+number of non-fraud transactions, compared to mobile, while the number
+of fraud transactions is comparable in both the cases.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{c+c1}{\PYZsh{} Plot XVI Fraud vs Non Fraud for CardType,CardMerchant and ProductCD}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ProductCD} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XVI (b) : ProductCD \PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{CardMerchant} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XVI (b) : CardMerchant \PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{CardType} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XVI (a) : CardType \PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **From Plot XVI, the following observations can be made: (a) Debit has a
+larger number of non-fraud transactions, compared to credit, while the
+number of fraud transactions is comparable in both the cases. (b) Both
+Discover and Amex have hardly any fraud transactions. (c) Products with
+code `C' has the highest proportion of Fraud Transactions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{c+c1}{\PYZsh{} Plot XVII Fraud vs Non Fraud for PurchaserEmail and ReceiverEmail}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{PurchaserEmail} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{PurchaserEmail}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{PurchaserEmail}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{PurchaserEmail}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XVII(a): PurchaserEmail\PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ReceiverEmail} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZus{}emaildomain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ReceiverEmail}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ReceiverEmail}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ReceiverEmail}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XVII(b): ReceiverEmail\PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From Plot XVII, we can make the following observations: (a) For both
+Purchaser Email and Receiver Email, we see that both gmail.com and
+hotmail.com are in top 3 of email service providers, meaning, that these
+are the most used services. (b) We also see the presence of a domain
+called `anonymous.com', which might be used by people who don't want to
+reveal their information.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{c+c1}{\PYZsh{} Plot XVIII Fraud vs Non Fraud for Log of Transaction Amount}
+          \PY{n}{Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} 
+                                                           \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XVIII (a) : Log of Transaction Amt \PYZhy{} Fraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkcyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XVIII (b): Log of Transaction Amt \PYZhy{} Non Fraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{c+c1}{\PYZsh{} Plot XIX Non Fraud for Log of dist1}
+          \PY{c+c1}{\PYZsh{} Check Plot XII for Fraud for Log of dist1}
+          \PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{steelblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XIX:Distribution of Log of dist1 of Non Fraudulent Txn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{true}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{c+c1}{\PYZsh{} For Plot XX,I am plotting the distribution of dist2 of Non Fraudulent Txn}
+          \PY{c+c1}{\PYZsh{} Check Plot XIV for Fraudulent Txn}
+          \PY{n}{Non\PYZus{}Fraud\PYZus{}Transactions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkseagreen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XX:Distribution of Log of dist2 of Non Fraudulent Txn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{true}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{c+c1}{\PYZsh{} Plot XXI Fraud vs Non Fraud for addr1 and addr2}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Address1} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{Address1}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{Address1}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{Address1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XXI(a): addr1\PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{Address2} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{Address2}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{Address2}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{Address2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XXI(b): addr2\PYZhy{} Fraud vs Non Fraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{part-2---transaction-frequency}{%
+\subsection{Part 2 - Transaction
+Frequency}\label{part-2---transaction-frequency}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{c+c1}{\PYZsh{} At the start of Task 2, first I am figuring out the addr2 value, having the maximum frequency}
+          \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{addr2}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}226}]:} 0    87.0
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{c+c1}{\PYZsh{} Now I am filtering out the dataset, to create a new dataframe, having rows with addr2 value corresponding to the value we got previously}
+          \PY{n}{max\PYZus{}addr2\PYZus{}bool}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{addr2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{87}
+          \PY{n}{max\PYZus{}addr2}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{n}{max\PYZus{}addr2\PYZus{}bool}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{c+c1}{\PYZsh{} Checking if data is properly filtered}
+          \PY{n}{max\PYZus{}addr2}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}228}]:} TransactionID     520481
+          TransactionDT     520481
+          TransactionAmt    520481
+          ProductCD         520481
+          isFraud           520481
+          card4             519100
+          card6             519103
+          P\_emaildomain     428419
+          R\_emaildomain      69932
+          addr1             520481
+          addr2             520481
+          dist1             238166
+          dist2              10710
+          DeviceType         78622
+          DeviceInfo         76083
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{c+c1}{\PYZsh{} Checking if data is properly filtered}
+          \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}229}]:} TransactionID     590540
+          TransactionDT     590540
+          TransactionAmt    590540
+          ProductCD         590540
+          isFraud           590540
+          card4             588963
+          card6             588969
+          P\_emaildomain     496084
+          R\_emaildomain     137291
+          addr1             524834
+          addr2             524834
+          dist1             238269
+          dist2              37627
+          DeviceType        140810
+          DeviceInfo        118666
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{c+c1}{\PYZsh{} Here I am converting the timedelta to a proper datetime using a reference start time}
+          \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{try}\PY{p}{:}
+              \PY{k+kn}{import} \PY{n+nn}{datetime}
+              \PY{n}{START\PYZus{}DATE} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}12\PYZhy{}01}\PY{l+s+s1}{\PYZsq{}}
+              \PY{n}{startdate} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n}{START\PYZus{}DATE}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{max\PYZus{}addr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{max\PYZus{}addr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{startdate} \PY{o}{+} \PY{n}{datetime}\PY{o}{.}\PY{n}{timedelta}\PY{p}{(}\PY{n}{seconds} \PY{o}{=} \PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{k}{except}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ok}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{c+c1}{\PYZsh{} After I get a proper datetime, now I add another field to max\PYZus{}addr2 dataframe, which will give me the hour of the transaction}
+          \PY{k}{try}\PY{p}{:}
+              \PY{n}{max\PYZus{}addr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{max\PYZus{}addr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{hour}
+          \PY{k}{except}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ok}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{c+c1}{\PYZsh{} Checking if that worked}
+          \PY{n}{max\PYZus{}addr2}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}232}]:}         TransactionID       TransactionDT  TransactionAmt ProductCD  isFraud  \textbackslash{}
+          590538        3577538 2018-06-01 23:58:08          117.00         W        0   
+          590539        3577539 2018-06-01 23:58:51          279.95         W        0   
+          
+                       card4   card6 P\_emaildomain R\_emaildomain  addr1  addr2  dist1  \textbackslash{}
+          590538  mastercard   debit       aol.com           NaN  387.0   87.0    3.0   
+          590539  mastercard  credit     gmail.com           NaN  299.0   87.0    NaN   
+          
+                  dist2 DeviceType DeviceInfo  hour  
+          590538    NaN        NaN        NaN    23  
+          590539    NaN        NaN        NaN    23  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{c+c1}{\PYZsh{} For Plot XXII,I am plotting the distribution of number of transactions vs the hour of the day}
+          \PY{n}{max\PYZus{}addr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+              \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{,}
+                    \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                    \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{teal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot XXII : Hourly Transaction Rate\PYZhy{} Hour vs Number of Txn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **Observation: From the hourly transaction rate which plots the number
+of transactions vs the hour of the day, it can be seen that the number
+of transactions start reducing from the 4th hour till the 12th hour.
+Hence, we can conclude that the people are generally awake from the 13th
+hour to 23rd hour, which continues from 0th hour to 3rd hour as well.
+
+    \hypertarget{part-3---product-code}{%
+\subsection{Part 3 - Product Code}\label{part-3---product-code}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{c+c1}{\PYZsh{} At the start of Task 3, I am first getting the count of transactions per productcd}
+          \PY{n}{complete\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCDcount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{complete\PYZus{}data}\PY{o}{.}\PY{n}{index}
+          \PY{n}{group\PYZus{}top} \PY{o}{=} \PY{n}{complete\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCDcount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{1.3}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ProductCD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ProductCDcount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ocean\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{group\PYZus{}top}\PY{p}{)}
+          
+          \PY{n}{font\PYZus{}size}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XXIII : ProductCD vs Count of Transactions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font\PYZus{}size}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}234}]:} Text(0.5, 1.0, 'Plot XXIII : ProductCD vs Count of Transactions')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{c+c1}{\PYZsh{} Then, I am calculating the sum of transaction amounts per productcd}
+          \PY{n}{complete\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCDcount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{complete\PYZus{}data}\PY{o}{.}\PY{n}{index}
+          \PY{n}{group\PYZus{}top} \PY{o}{=} \PY{n}{complete\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCDcount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{1.3}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ProductCD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ProductCDcount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ocean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{group\PYZus{}top}\PY{p}{)}
+          
+          \PY{n}{font\PYZus{}size}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XXIV : ProductCD vs Sum of Transaction Amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font\PYZus{}size}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}235}]:} Text(0.5, 1.0, 'Plot XXIV : ProductCD vs Sum of Transaction Amount')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{c+c1}{\PYZsh{} Finally, I am calculating the average or mean of transaction amount per productcd}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{complete\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCDcount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{complete\PYZus{}data}\PY{o}{.}\PY{n}{index}
+          \PY{n}{group\PYZus{}top} \PY{o}{=} \PY{n}{complete\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProductCDcount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{1.3}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ProductCD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ProductCDcount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{group\PYZus{}top}\PY{p}{)}
+          
+          \PY{n}{font\PYZus{}size}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XXV : ProductCD vs Mean/Average of Transaction Amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font\PYZus{}size}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}236}]:} Text(0.5, 1.0, 'Plot XXV : ProductCD vs Mean/Average of Transaction Amount')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **Observation: From Plot XXV, we can see that the most expensive product
+is the product having ProductCD=`R', and the least expensive is the
+product having ProductCD=`C'. This is because, to find this, I first
+found out the count and sum of the transaction amounts per ProductCD,
+and then find out its mean/average, which, gives the most expensive and
+least expensive products.
+
+    \hypertarget{part-4---correlation-coefficient}{%
+\subsection{Part 4 - Correlation
+Coefficient}\label{part-4---correlation-coefficient}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{c+c1}{\PYZsh{} Task 4}
+          \PY{c+c1}{\PYZsh{} Here I am converting the timedelta to a proper datetime using a reference start time}
+          \PY{k}{try}\PY{p}{:}
+              \PY{k+kn}{import} \PY{n+nn}{datetime}
+              \PY{n}{START\PYZus{}DATE} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}12\PYZhy{}01}\PY{l+s+s1}{\PYZsq{}}
+              \PY{n}{startdate} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n}{START\PYZus{}DATE}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{startdate} \PY{o}{+} \PY{n}{datetime}\PY{o}{.}\PY{n}{timedelta}\PY{p}{(}\PY{n}{seconds} \PY{o}{=} \PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{k}{except}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ok}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{c+c1}{\PYZsh{} After I get a proper datetime, now I add another field to max\PYZus{}addr2 dataframe, which will give me the hour of the transaction}
+          \PY{k}{try}\PY{p}{:}
+              \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{hour}
+          \PY{k}{except}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ok}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}239}]:}    TransactionID       TransactionDT  TransactionAmt ProductCD  isFraud  \textbackslash{}
+          0        2987000 2017-12-02 00:00:00            68.5         W        0   
+          1        2987001 2017-12-02 00:00:01            29.0         W        0   
+          
+                  card4   card6 P\_emaildomain R\_emaildomain  addr1  addr2  dist1  dist2  \textbackslash{}
+          0    discover  credit           NaN           NaN  315.0   87.0   19.0    NaN   
+          1  mastercard  credit     gmail.com           NaN  325.0   87.0    NaN    NaN   
+          
+            DeviceType DeviceInfo  hour  
+          0        NaN        NaN     0  
+          1        NaN        NaN     0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}240}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{c+c1}{\PYZsh{} Then, I am calculating the sum of transaction amounts per productcd}
+          \PY{n}{complete\PYZus{}datas} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}datas}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transactionsumperhr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{n}{complete\PYZus{}datas}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{complete\PYZus{}datas}\PY{o}{.}\PY{n}{index}
+          \PY{n}{group\PYZus{}top} \PY{o}{=} \PY{n}{complete\PYZus{}datas}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transactionsumperhr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{1.3}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{transactionsumperhr}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ocean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{group\PYZus{}top}\PY{p}{)}
+          
+          \PY{n}{font\PYZus{}size}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plot XXVI : Hour vs Sum of Transaction Amount per Hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font\PYZus{}size}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}241}]:} Text(0.5, 1.0, 'Plot XXVI : Hour vs Sum of Transaction Amount per Hour')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{hr\PYZus{}amount}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionAmt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{hr\PYZus{}amount}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}242}]:}                     hour  TransactionAmt
+          hour            1.000000        0.044532
+          TransactionAmt  0.044532        1.000000
+\end{Verbatim}
+            
+    **For Task 4, I plotted Plot XXVI, to show the distribution of time of
+day and the purchase amount. Also the correlation coefficient is
+calculated above, which comes out to be 0.044532, by Pearson method
+
+    \hypertarget{part-5---interesting-plot}{%
+\subsection{Part 5 - Interesting Plot}\label{part-5---interesting-plot}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{c+c1}{\PYZsh{} In Task 5, I have first taken out the CardMerchant and CardType for Fraud vs Non\PYZhy{}Fraud Txn}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{card4} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{card6} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{card6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isFraud}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{c+c1}{\PYZsh{} Then, I took the above Plot and showed it as percentage}
+          \PY{n}{f}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{props} \PY{o}{=} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{card4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+          \PY{n}{p} \PY{o}{=} \PY{n}{props}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stacked}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{props} \PY{o}{=} \PY{n}{df\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{card6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+          \PY{n}{p} \PY{o}{=} \PY{n}{props}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stacked}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_75_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    **Observation: The above plots gives us some interesting information,
+which are as follows: (a) Visa has the highest number of Fraud Txns, but
+this number is only a minor proportion of all VISA transactions. (b)
+Discover, on the other hand, has very few Fraud transactions, yet it has
+the highest proportion of all Discover transactions, meaning, the
+chances that if a Txn is Discover, then chances that it is Fraud is the
+highest. (c) Although most Fraud transactions are done with Debit, yet
+when it comes to proportion of Fraud Transactions, Credit has the
+highest.
+
+    \hypertarget{part-6---prediction-model}{%
+\subsection{Part 6 - Prediction Model}\label{part-6---prediction-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{c+c1}{\PYZsh{} For Task 6, I start by merging the two CSVs}
+          
+          \PY{n}{model\PYZus{}df}\PY{o}{=} \PY{n}{df\PYZus{}transaction}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}identity}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{n}{model\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}246}]:}    TransactionID  isFraud  TransactionDT  TransactionAmt ProductCD  card1  \textbackslash{}
+          0        2987000        0          86400            68.5         W  13926   
+          1        2987001        0          86401            29.0         W   2755   
+          2        2987002        0          86469            59.0         W   4663   
+          3        2987003        0          86499            50.0         W  18132   
+          4        2987004        0          86506            50.0         H   4497   
+          5        2987005        0          86510            49.0         W   5937   
+          6        2987006        0          86522           159.0         W  12308   
+          7        2987007        0          86529           422.5         W  12695   
+          8        2987008        0          86535            15.0         H   2803   
+          9        2987009        0          86536           117.0         W  17399   
+          
+             card2  card3       card4  card5  {\ldots}                id\_31  id\_32  \textbackslash{}
+          0    NaN  150.0    discover  142.0  {\ldots}                  NaN    NaN   
+          1  404.0  150.0  mastercard  102.0  {\ldots}                  NaN    NaN   
+          2  490.0  150.0        visa  166.0  {\ldots}                  NaN    NaN   
+          3  567.0  150.0  mastercard  117.0  {\ldots}                  NaN    NaN   
+          4  514.0  150.0  mastercard  102.0  {\ldots}  samsung browser 6.2   32.0   
+          5  555.0  150.0        visa  226.0  {\ldots}                  NaN    NaN   
+          6  360.0  150.0        visa  166.0  {\ldots}                  NaN    NaN   
+          7  490.0  150.0        visa  226.0  {\ldots}                  NaN    NaN   
+          8  100.0  150.0        visa  226.0  {\ldots}   mobile safari 11.0   32.0   
+          9  111.0  150.0  mastercard  224.0  {\ldots}                  NaN    NaN   
+          
+                 id\_33           id\_34  id\_35 id\_36 id\_37  id\_38  DeviceType  \textbackslash{}
+          0        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          1        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          2        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          3        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          4  2220x1080  match\_status:2      T     F     T      T      mobile   
+          5        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          6        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          7        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          8   1334x750  match\_status:1      T     F     F      T      mobile   
+          9        NaN             NaN    NaN   NaN   NaN    NaN         NaN   
+          
+                                DeviceInfo  
+          0                            NaN  
+          1                            NaN  
+          2                            NaN  
+          3                            NaN  
+          4  SAMSUNG SM-G892A Build/NRD90M  
+          5                            NaN  
+          6                            NaN  
+          7                            NaN  
+          8                     iOS Device  
+          9                            NaN  
+          
+          [10 rows x 434 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{c+c1}{\PYZsh{} Drop the columns which have more than 60\PYZpc{} null values as they will not contribute much to the prediction model}
+          \PY{n}{nullp} \PY{o}{=} \PY{n}{model\PYZus{}df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{model\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}
+          
+          \PY{n}{column\PYZus{}drop} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{nullp}\PY{p}{[}\PY{n}{nullp} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{c+c1}{\PYZsh{} List of columns dropped}
+          \PY{n}{column\PYZus{}drop}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}248}]:} array(['dist2', 'R\_emaildomain', 'D6', 'D7', 'D8', 'D9', 'D12', 'D13',
+                 'D14', 'V138', 'V139', 'V140', 'V141', 'V142', 'V143', 'V144',
+                 'V145', 'V146', 'V147', 'V148', 'V149', 'V150', 'V151', 'V152',
+                 'V153', 'V154', 'V155', 'V156', 'V157', 'V158', 'V159', 'V160',
+                 'V161', 'V162', 'V163', 'V164', 'V165', 'V166', 'V167', 'V168',
+                 'V169', 'V170', 'V171', 'V172', 'V173', 'V174', 'V175', 'V176',
+                 'V177', 'V178', 'V179', 'V180', 'V181', 'V182', 'V183', 'V184',
+                 'V185', 'V186', 'V187', 'V188', 'V189', 'V190', 'V191', 'V192',
+                 'V193', 'V194', 'V195', 'V196', 'V197', 'V198', 'V199', 'V200',
+                 'V201', 'V202', 'V203', 'V204', 'V205', 'V206', 'V207', 'V208',
+                 'V209', 'V210', 'V211', 'V212', 'V213', 'V214', 'V215', 'V216',
+                 'V217', 'V218', 'V219', 'V220', 'V221', 'V222', 'V223', 'V224',
+                 'V225', 'V226', 'V227', 'V228', 'V229', 'V230', 'V231', 'V232',
+                 'V233', 'V234', 'V235', 'V236', 'V237', 'V238', 'V239', 'V240',
+                 'V241', 'V242', 'V243', 'V244', 'V245', 'V246', 'V247', 'V248',
+                 'V249', 'V250', 'V251', 'V252', 'V253', 'V254', 'V255', 'V256',
+                 'V257', 'V258', 'V259', 'V260', 'V261', 'V262', 'V263', 'V264',
+                 'V265', 'V266', 'V267', 'V268', 'V269', 'V270', 'V271', 'V272',
+                 'V273', 'V274', 'V275', 'V276', 'V277', 'V278', 'V322', 'V323',
+                 'V324', 'V325', 'V326', 'V327', 'V328', 'V329', 'V330', 'V331',
+                 'V332', 'V333', 'V334', 'V335', 'V336', 'V337', 'V338', 'V339',
+                 'id\_01', 'id\_02', 'id\_03', 'id\_04', 'id\_05', 'id\_06', 'id\_07',
+                 'id\_08', 'id\_09', 'id\_10', 'id\_11', 'id\_12', 'id\_13', 'id\_14',
+                 'id\_15', 'id\_16', 'id\_17', 'id\_18', 'id\_19', 'id\_20', 'id\_21',
+                 'id\_22', 'id\_23', 'id\_24', 'id\_25', 'id\_26', 'id\_27', 'id\_28',
+                 'id\_29', 'id\_30', 'id\_31', 'id\_32', 'id\_33', 'id\_34', 'id\_35',
+                 'id\_36', 'id\_37', 'id\_38', 'DeviceType', 'DeviceInfo'],
+                dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{c+c1}{\PYZsh{} Loading Test Identity}
+          \PY{n}{identity\PYZus{}test}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data Science Fundamentals}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{test\PYZus{}identity.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{c+c1}{\PYZsh{} Loading Test Transaction}
+          \PY{n}{transaction\PYZus{}test}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data Science Fundamentals}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{test\PYZus{}transaction.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{c+c1}{\PYZsh{} Merging Both Transaction and Identity}
+          \PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{o}{=} \PY{n}{transaction\PYZus{}test}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{identity\PYZus{}test}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{c+c1}{\PYZsh{} Drop Columns from both model\PYZus{}df and test\PYZus{}transaction\PYZus{}identity}
+          \PY{n}{model\PYZus{}df}\PY{o}{=}\PY{n}{model\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{column\PYZus{}drop}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{o}{=}\PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{column\PYZus{}drop}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}253}]:} \PY{c+c1}{\PYZsh{} Fill Null Values with \PYZhy{}999}
+          \PY{n}{model\PYZus{}df} \PY{o}{=} \PY{n}{model\PYZus{}df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{999}\PY{p}{)}
+          \PY{n}{test\PYZus{}transaction\PYZus{}identity} \PY{o}{=} \PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{999}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{c+c1}{\PYZsh{} Create target(y\PYZus{}train) and feature variable(x\PYZus{}train)}
+          \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{model\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{model\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}255}]:} \PY{c+c1}{\PYZsh{} Label Encoding}
+          \PY{c+c1}{\PYZsh{} Ref: https://codeloop.org/python\PYZhy{}machine\PYZhy{}learning\PYZhy{}label\PYZhy{}encoding/}
+          \PY{c+c1}{\PYZsh{} Ref: https://www.programcreek.com/python/example/93350/sklearn.preprocessing.LabelEncoder}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+          \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+              \PY{k}{if} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{o}{.}\PY{n}{dtype}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{or} \PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{o}{.}\PY{n}{dtype}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+                  \PY{n}{lbl} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{lbl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{f}\PY{p}{]} \PY{o}{=} \PY{n}{lbl}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{n}{f}\PY{p}{]} \PY{o}{=} \PY{n}{lbl}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{c+c1}{\PYZsh{} Create Baseline Model, that is, Logistic Regression, Kaggle Rank\PYZhy{}\PYZgt{}5249, Score\PYZhy{}\PYZgt{}0.79}
+          \PY{c+c1}{\PYZsh{} Ref: https://towardsdatascience.com/building\PYZhy{}a\PYZhy{}logistic\PYZhy{}regression\PYZhy{}in\PYZhy{}python\PYZhy{}step\PYZhy{}by\PYZhy{}step\PYZhy{}becd4d56c9c8}
+          \PY{c+c1}{\PYZsh{} Ref: https://scikit\PYZhy{}learn.org/stable/modules/generated/sklearn.linear\PYZus{}model.LogisticRegression.html}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+          \PY{n}{logisticreg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{logisticreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}256}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                    intercept\_scaling=1, max\_iter=100, multi\_class='warn',
+                    n\_jobs=None, penalty='l2', random\_state=None, solver='warn',
+                    tol=0.0001, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{c+c1}{\PYZsh{} Predict}
+          \PY{n}{submit} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data Science Fundamentals}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sample\PYZus{}submission.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{submit}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{logisticreg}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{submit}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logisticreg\PYZus{}submission.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{submit}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}257}]:}                 isFraud
+          TransactionID          
+          3663549        0.025644
+          3663550        0.029312
+          3663551        0.034953
+          3663552        0.030020
+          3663553        0.026786
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{c+c1}{\PYZsh{} Create Second, hopefully, a better model, using XGB Classifier, Kaggle Rank\PYZhy{}\PYZgt{}4837, Score\PYZhy{}\PYZgt{}0.8969}
+          \PY{c+c1}{\PYZsh{} Ref: https://xgboost.readthedocs.io/en/latest/python/python\PYZus{}api.html}
+          \PY{c+c1}{\PYZsh{} Ref: https://www.programcreek.com/python/example/99824/xgboost.XGBClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k}{import} \PY{n}{XGBClassifier}
+          \PY{n}{xgbmodel} \PY{o}{=} \PY{n}{XGBClassifier}\PY{p}{(}\PY{p}{)}
+          \PY{n}{xgbmodel}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}258}]:} XGBClassifier(base\_score=0.5, booster='gbtree', colsample\_bylevel=1,
+                 colsample\_bynode=1, colsample\_bytree=1, gamma=0, learning\_rate=0.1,
+                 max\_delta\_step=0, max\_depth=3, min\_child\_weight=1, missing=None,
+                 n\_estimators=100, n\_jobs=1, nthread=None,
+                 objective='binary:logistic', random\_state=0, reg\_alpha=0,
+                 reg\_lambda=1, scale\_pos\_weight=1, seed=None, silent=None,
+                 subsample=1, verbosity=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{c+c1}{\PYZsh{} Predict}
+          \PY{n}{submit\PYZus{}xgb} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data Science Fundamentals}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sample\PYZus{}submission.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TransactionID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{submit}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isFraud}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{xgbmodel}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{test\PYZus{}transaction\PYZus{}identity}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{submit}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGB\PYZus{}submission.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{submit}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}259}]:}                 isFraud
+          TransactionID          
+          3663549        0.005306
+          3663550        0.011927
+          3663551        0.015194
+          3663552        0.004945
+          3663553        0.011092
+\end{Verbatim}
+            
+    **Model Building Workflow: (1) I started off by first merging the two
+required CSVs. (2) Then, I found out the columns which have more than
+60\% null values as they will not contribute much to the prediction
+model. (3) After that, I loaded both the test files and merged them. (4)
+Next, I dropped the columns, which I found out from Step (2) from both
+the model and test dataframes. (5) After that, I decided to use Random
+Imputation to fill the Null Values, and replace them with -999. (6)
+Next, I created the target(y\_train) and feature variable(x\_train). (7)
+Then, I carried out the process of Label Encoding, which is used to
+normalize labels as well as to transform non-numerical labels (as long
+as they are hashable and comparable) to numerical labels. (8) After
+that, I decided to create a Baseline Model, to keep things simple. I did
+this by using Logistic Regression technique, and ran predictions on the
+sample\_submission.csv file. This gave me a Kaggle rank of 5249 and
+score of 0.79. (9) Finally, I decided to create a better model using XGB
+Classifier. When I ran predictions on the sample\_submission.csv file, I
+got a better Kaggle rank of 4837 and score of 0.8969.
+
+    \hypertarget{part-7---final-result}{%
+\subsection{Part 7 - Final Result}\label{part-7---final-result}}
+
+    Report the rank, score, number of entries, for your highest rank.
+Include a snapshot of your best score on the leaderboard as
+confirmation. Be sure to provide a link to your Kaggle profile. Make
+sure to include a screenshot of your ranking. Make sure your profile
+includes your face and affiliation with SBU.
+
+    Kaggle Link: https://www.kaggle.com/kaustavsbu
+
+    Highest Rank: 4837
+
+    Score: 0.8969
+
+    Number of entries: 2
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:Kaggle_Rank.jpg}
+\caption{Kaggle\_Rank.jpg}
+\end{figure}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
